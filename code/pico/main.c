@@ -36,5 +36,7 @@ int main()
 
 	// exit
 	uart_puts(UART_ID, "Quit\n");
-	exit(0)
+	while(true)
+	{
+	}
 }
