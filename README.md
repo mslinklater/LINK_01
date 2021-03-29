@@ -6,6 +6,17 @@ The LINK_01 machine
 
 ctrl-a q to quit
 
+# Raspberry Pi pins
+
+|pin|use|
+|---|---|
+|6|GND (board)|
+|8|UART-TX|
+|10|UART-RX|
+|18|SWDIO|
+|20|GND|
+|22|SWCLK|
+
 # Pico pins
 
 |use|GPIO|pin||pin|GPIO|use|
