@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
-#include "hardware/uart.h"
 #include "hardware/irq.h"
 
 #include "configuration.h"
 #include "uart.h"
+#include "ic6502.h"
+
+#include "test.h"
 
 int main()
 {
@@ -33,6 +35,11 @@ int main()
 	irq_set_exclusive_handler(uart_irq, uart_on_rx);
 	irq_set_enabled(uart_irq, true);
 	uart_set_irq_enables(UART_ID, true, false);
+
+	ic6502_init();
+	ic6502_reset();
+
+	runTest();
 
 	// exit
 	uart_puts(UART_ID, "Quit\n");

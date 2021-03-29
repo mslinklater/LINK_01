@@ -6,3 +6,7 @@
 
 #define UART_TX_PIN 0
 #define UART_RX_PIN 1
+
+#define IC6502_PHI2_PIN 28
+#define IC6502_RESB_PIN 27
+#define IC6502_BE_PIN 26

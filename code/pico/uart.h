@@ -1,3 +1,5 @@
+#include "hardware/uart.h"
+
 extern int uart_baudRate;
 extern int uart_irq;
 
