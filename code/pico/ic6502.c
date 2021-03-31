@@ -18,12 +18,22 @@ void ic6502_init()
 	// bus enable
     gpio_init(IC6502_BE_PIN);
     gpio_set_dir(IC6502_BE_PIN, GPIO_OUT);
+
+	// IRQB
+    gpio_init(IC6502_IRQB_PIN);
+    gpio_set_dir(IC6502_IRQB_PIN, GPIO_OUT);
+
+	// NMIB
+    gpio_init(IC6502_NMIB_PIN);
+    gpio_set_dir(IC6502_NMIB_PIN, GPIO_OUT);
 }
 
 void ic6502_reset()
 {
 	uart_puts(UART_ID, "Reset\n");
     gpio_put(IC6502_RESB_PIN, 0);
+    gpio_put(IC6502_IRQB_PIN, 1);
+    gpio_put(IC6502_NMIB_PIN, 1);
 	ic6502_enable_busses();
 	for(int i=0 ; i<10 ; i++)
 	{

@@ -6,13 +6,13 @@
 void runTest()
 {
     while (true) {
-		ic6502_enable_busses();
+//		ic6502_enable_busses();
 		for(int i=0 ; i<20 ; i++)
 		{
 			ic6502_tick();
 	        sleep_ms(50);
 		}
-		ic6502_disable_busses();
+//		ic6502_disable_busses();
 		for(int i=0 ; i<20 ; i++)
 		{
 			ic6502_tick();
