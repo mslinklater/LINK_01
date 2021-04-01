@@ -62,8 +62,21 @@ void setup()
   // All 8 Q pins are R/W
 }
 
+void clear()
+{
+  Serial.println("clear");
+  digitalWrite(pin_CLR, LOW);
+  digitalWrite(pin_S0, HIGH);
+  digitalWrite(pin_S1, HIGH);
+  digitalWrite(pin_QAcomp, LOW);
+  digitalWrite(pin_QHcomp, LOW);
+  
+}
+
 void loop()
 {
+  clear();
+  delay(1000);
 }
 
 
