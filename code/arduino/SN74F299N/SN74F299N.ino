@@ -41,10 +41,12 @@ int pin_QB = 32;
 int pin_CLK = 33;
 int pin_SR = 30;
 
-
+int clock = 0;
 
 void setup()
 {
+  Serial.begin(9600);
+  
   // chip inputs
   pinMode(pin_S0, OUTPUT);
   pinMode(pin_S1, OUTPUT);
@@ -70,14 +72,85 @@ void clear()
   digitalWrite(pin_S1, HIGH);
   digitalWrite(pin_QAcomp, LOW);
   digitalWrite(pin_QHcomp, LOW);
-  
+  digitalWrite(pin_OE1, HIGH);
+  digitalWrite(pin_OE2, HIGH);
+  delay(1);
 }
+
+void set_input()
+{
+  digitalWrite(pin_OE1, HIGH);
+  digitalWrite(pin_OE2, HIGH);
+}
+
+void set_output()
+{
+  digitalWrite(pin_OE1, LOW);
+  digitalWrite(pin_OE2, LOW);
+}
+
+void tick()
+{
+  if(clock == 0)
+  {
+    digitalWrite(pin_CLK, LOW);
+    clock = 1;
+  }
+  else
+  {
+    digitalWrite(pin_CLK, HIGH);
+    clock = 0;
+  }
+  delay(20);
+}
+
+void left(int value)
+{
+  digitalWrite(pin_CLR, HIGH);
+  digitalWrite(pin_S1, HIGH);
+  digitalWrite(pin_S0, LOW);
+  digitalWrite(pin_SL, value);
+  tick();
+  tick();
+}
+
+void right(int value)
+{
+  digitalWrite(pin_CLR, HIGH);
+  digitalWrite(pin_S1, LOW);
+  digitalWrite(pin_S0, HIGH);
+  digitalWrite(pin_SR, value);
+  tick();
+  tick();
+}
+
+int value = 0;
 
 void loop()
 {
-  clear();
-  delay(1000);
+  set_output();
+  left(1);
+  left(1);
+  left(1);
+  left(1);
+  left(1);
+  left(1);
+  left(1);
+  left(1);
+  left(0);
+  left(0);
+  left(0);
+  left(0);
+  left(0);
+  left(0);
+  left(0);
+  left(0);
+//  right(0);
+//  right(0);
+//  right(0);
+//  right(0);
+//  right(0);
+//  right(0);
+//  right(0);
+//  right(0);
 }
-
-
-
