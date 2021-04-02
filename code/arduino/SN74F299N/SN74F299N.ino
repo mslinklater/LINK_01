@@ -21,67 +21,52 @@ Left  H   H   L   L   L   ^   L   X   QBn QCn QDn QEn QFn QGn QHn L   QBn L     
 Load  H   H   H   X   X   ^   X   X   a   b   c   d   e   f   g   h   a   h     <
 */
 
-int pin_S0 = 52;
-int pin_OE1 = 53;
-//int pin_OE2 = 50;
-int pin_QAcomp = 47;
-//int pin_CLR = 44;
+int pin_S0 = 23;
+int pin_S1 = 25;
 
-int pin_S1 = 38;
-int pin_SL = 39;
-//int pin_QHcomp = 36;
-int pin_CLK = 33;
-//int pin_SR = 30;
+int pin_OE = 27;
+
+int pin_SHIFT_IN = 29;
+
+int pin_CLK = 51;
 
 int clock = 0;
+int pause = 10;
 
 void setup()
 {
   Serial.begin(9600);
   
-  // chip inputs
   pinMode(pin_S0, OUTPUT);
   pinMode(pin_S1, OUTPUT);
-  pinMode(pin_OE1, OUTPUT);
-//  pinMode(pin_OE2, OUTPUT);
-//  pinMode(pin_CLR, OUTPUT);
+  pinMode(pin_OE, OUTPUT);
   pinMode(pin_CLK, OUTPUT);
-  pinMode(pin_SL, OUTPUT);
-  //pinMode(pin_SR, OUTPUT);
+  pinMode(pin_SHIFT_IN, OUTPUT);
   
-  // chip outputs
-  pinMode(pin_QAcomp, INPUT);
-  //pinMode(pin_QHcomp, INPUT);
-  
-  // All 8 Q pins are R/W
 }
 
 void clear()  // we never need this...
 {
   Serial.println("clear");
-//  digitalWrite(pin_CLR, LOW);
-  digitalWrite(pin_S0, HIGH);
-  digitalWrite(pin_S1, HIGH);
-//  digitalWrite(pin_QAcomp, LOW);
-//  digitalWrite(pin_QHcomp, LOW);
-  digitalWrite(pin_OE1, HIGH);
-//  digitalWrite(pin_OE2, HIGH);
-  delay(1);
+  set_output();
+  left();
+  for(int i=0 ; i<24 ; i++)
+  {
+    shift(0, 0);
+  }
 }
 
 void set_input()
 {
-  digitalWrite(pin_OE1, HIGH);
-//  digitalWrite(pin_OE2, HIGH);
+  digitalWrite(pin_OE, HIGH);
 }
 
 void set_output()
 {
-  digitalWrite(pin_OE1, LOW);
-//  digitalWrite(pin_OE2, LOW);
+  digitalWrite(pin_OE, LOW);
 }
 
-void tick()
+void tick(int t)
 {
   if(clock == 0)
   {
@@ -93,56 +78,79 @@ void tick()
     digitalWrite(pin_CLK, HIGH);
     clock = 0;
   }
-  delay(20);
+  delay(t);
 }
 
-void left(int value)
+void left()
 {
-//  digitalWrite(pin_CLR, HIGH);
   digitalWrite(pin_S1, HIGH);
   digitalWrite(pin_S0, LOW);
-  digitalWrite(pin_SL, value);
-  tick();
-  tick();
 }
 
-//void right(int value)
-//{
-//  digitalWrite(pin_CLR, HIGH);
-//  digitalWrite(pin_S1, LOW);
-//  digitalWrite(pin_S0, HIGH);
-//  digitalWrite(pin_SR, value);
-//  tick();
-//  tick();
-//}
+void right()
+{
+  digitalWrite(pin_S1, LOW);
+  digitalWrite(pin_S0, HIGH);
+}
+
+void shift(int value, int t)
+{
+  digitalWrite(pin_SHIFT_IN, value);
+  tick(t);
+  tick(t);  
+}
 
 int value = 0;
 
+void set_value(int data, int addr, int t)
+{
+  set_input();
+  left();
+  for(int i=0 ; i<16 ; i++)
+  {
+    if(addr & (1<<i))
+      shift(1, 0);
+    else
+      shift(0, 0);
+  }
+  for(int i=0 ; i<8 ; i++)
+  {
+    if(data & (1<<i))
+      shift(1, 0);
+    else
+      shift(0, 0);
+  }  
+  set_output();
+  delay(t);
+}
+
+int dataval = 0;
+int addrval = 0;
+
 void loop()
 {
-  set_output();
-  left(1);
-  left(1);
-  left(1);
-  left(1);
-  left(1);
-  left(1);
-  left(1);
-  left(1);
-  left(0);
-  left(0);
-  left(0);
-  left(0);
-  left(0);
-  left(0);
-  left(0);
-  left(0);
-//  right(0);
-//  right(0);
-//  right(0);
-//  right(0);
-//  right(0);
-//  right(0);
-//  right(0);
-//  right(0);
+  set_value(dataval, addrval, 100);
+  dataval--;
+  addrval++;
+  
+  /*
+  left();
+  for(int i=0 ; i<8 ; i++)
+  {
+    shift(1, pause);
+  }
+  for(int i=0 ; i<24 ; i++)
+  {
+    shift(0, pause);
+  }
+  right();
+  for(int i=0 ; i<8 ; i++)
+  {
+    shift(1, pause);
+  }
+  for(int i=0 ; i<24 ; i++)
+  {
+    shift(0, pause);
+  }
+  */
 }
