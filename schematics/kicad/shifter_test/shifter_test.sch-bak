@@ -1,0 +1,123 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L FizzyChicken:SN74F299 U?
+U 1 1 606864C4
+P 5350 4150
+F 0 "U?" H 5350 4825 50  0000 C CNN
+F 1 "SN74F299" H 5350 4734 50  0000 C CNN
+F 2 "" H 5350 4150 50  0001 C CNN
+F 3 "" H 5350 4150 50  0001 C CNN
+	1    5350 4150
+	1    0    0    -1  
+$EndComp
+$Comp
+L FizzyChicken:SN74F299 U?
+U 1 1 60694C13
+P 5350 2550
+F 0 "U?" H 5350 3225 50  0000 C CNN
+F 1 "SN74F299" H 5350 3134 50  0000 C CNN
+F 2 "" H 5350 2550 50  0001 C CNN
+F 3 "" H 5350 2550 50  0001 C CNN
+	1    5350 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L FizzyChicken:SN74F299 U?
+U 1 1 6069D545
+P 5350 5800
+F 0 "U?" H 5350 6475 50  0000 C CNN
+F 1 "SN74F299" H 5350 6384 50  0000 C CNN
+F 2 "" H 5350 5800 50  0001 C CNN
+F 3 "" H 5350 5800 50  0001 C CNN
+	1    5350 5800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5750 6250 5850 6250
+Wire Wire Line
+	5850 6250 5850 6400
+Wire Wire Line
+	5850 6400 4300 6400
+Wire Wire Line
+	4300 6400 4300 4450
+Wire Wire Line
+	4300 4450 3950 4450
+Wire Wire Line
+	5750 5650 5850 5650
+Wire Wire Line
+	5850 5650 5850 4600
+Wire Wire Line
+	5850 4600 5750 4600
+Wire Wire Line
+	5750 4000 5850 4000
+Wire Wire Line
+	5850 4000 5850 3000
+Wire Wire Line
+	5850 3000 5750 3000
+Wire Wire Line
+	4950 5450 4850 5450
+Wire Wire Line
+	4850 5450 4850 5550
+Wire Wire Line
+	4850 5550 4950 5550
+Wire Wire Line
+	4950 3800 4850 3800
+Wire Wire Line
+	4850 3800 4850 3900
+Wire Wire Line
+	4850 3900 4950 3900
+Wire Wire Line
+	4950 2200 4850 2200
+Wire Wire Line
+	4850 2200 4850 2300
+Wire Wire Line
+	4850 2300 4950 2300
+Wire Wire Line
+	4850 2300 4850 3800
+Connection ~ 4850 2300
+Connection ~ 4850 3800
+Wire Wire Line
+	4850 3900 4850 5450
+Connection ~ 4850 3900
+Connection ~ 4850 5450
+Wire Wire Line
+	5750 2900 6500 2900
+Wire Wire Line
+	5750 4500 6500 4500
+Wire Wire Line
+	6500 4500 6500 2900
+Connection ~ 6500 2900
+Wire Wire Line
+	6500 2900 6650 2900
+Wire Wire Line
+	4950 2900 4750 2900
+Text Label 4750 2900 0    50   ~ 0
+5V
+Wire Wire Line
+	4950 4500 4750 4500
+Text Label 4750 4500 0    50   ~ 0
+5V
+Wire Wire Line
+	4950 6150 4750 6150
+Text Label 4750 6150 0    50   ~ 0
+5V
+Wire Wire Line
+	5750 6150 6500 6150
+Wire Wire Line
+	6500 6150 6500 4500
+Connection ~ 6500 4500
+$EndSCHEMATC
