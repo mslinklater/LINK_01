@@ -10,13 +10,13 @@ void runTest()
 		for(int i=0 ; i<20 ; i++)
 		{
 			ic6502_tick();
-	        sleep_ms(50);
+	        sleep_ms(250);
 		}
 //		ic6502_disable_busses();
 		for(int i=0 ; i<20 ; i++)
 		{
 			ic6502_tick();
-	        sleep_ms(50);
+	        sleep_ms(250);
 		}
 	}
 }
