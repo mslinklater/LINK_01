@@ -34,7 +34,7 @@ void ic6502_reset()
     gpio_put(IC6502_RESB_PIN, 0);
     gpio_put(IC6502_IRQB_PIN, 1);
     gpio_put(IC6502_NMIB_PIN, 1);
-	ic6502_enable_busses();
+	ic6502_enable_bus(false);
 	for(int i=0 ; i<10 ; i++)
 	{
 		ic6502_tick();
@@ -49,12 +49,8 @@ void ic6502_tick()
 	s_tickState = !s_tickState;
 }
 
-void ic6502_enable_busses()
+void ic6502_enable_bus(bool enable)
 {
-    gpio_put(IC6502_BE_PIN, 1);
+    gpio_put(IC6502_BE_PIN, enable ? 1 : 0);
 }
 
-void ic6502_disable_busses()
-{
-    gpio_put(IC6502_BE_PIN, 0);
-}

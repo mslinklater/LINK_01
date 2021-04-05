@@ -1,4 +1,240 @@
-EESchema Schematic File Version 2
-EELAYER 25 0
+EESchema Schematic File Version 4
+EELAYER 30 0
 EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L FizzyChicken:RaspberryPiPico U?
+U 1 1 6071C51F
+P 3450 2350
+F 0 "U?" H 3450 3565 50  0000 C CNN
+F 1 "RaspberryPiPico" H 3450 3474 50  0000 C CNN
+F 2 "" H 3450 2350 50  0001 C CNN
+F 3 "" H 3450 2350 50  0001 C CNN
+	1    3450 2350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Raspberry_Pi_2_3 J?
+U 1 1 6071CD4A
+P 1650 2350
+F 0 "J?" H 1650 3831 50  0000 C CNN
+F 1 "Raspberry_Pi_2_3" H 1650 3740 50  0000 C CNN
+F 2 "" H 1650 2350 50  0001 C CNN
+F 3 "https://www.raspberrypi.org/documentation/hardware/raspberrypi/schematics/rpi_SCH_3bplus_1p0_reduced.pdf" H 1650 2350 50  0001 C CNN
+	1    1650 2350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	850  1450 700  1450
+Wire Wire Line
+	700  1450 700  700 
+Wire Wire Line
+	700  700  2800 700 
+Wire Wire Line
+	2800 700  2800 1400
+Wire Wire Line
+	850  1550 750  1550
+Wire Wire Line
+	750  1550 750  750 
+Wire Wire Line
+	750  750  2750 750 
+Wire Wire Line
+	2750 750  2750 1500
+Wire Wire Line
+	1550 3650 1550 3950
+Wire Wire Line
+	1550 3950 3450 3950
+Wire Wire Line
+	3450 3950 3450 3750
+Wire Wire Line
+	850  2750 750  2750
+Wire Wire Line
+	750  2750 750  3900
+Wire Wire Line
+	750  3900 3350 3900
+Wire Wire Line
+	3350 3900 3350 3750
+Wire Wire Line
+	850  2650 700  2650
+Wire Wire Line
+	700  2650 700  4000
+Wire Wire Line
+	700  4000 3550 4000
+Wire Wire Line
+	3550 4000 3550 3750
+Wire Wire Line
+	2800 1400 3000 1400
+Wire Wire Line
+	2750 1500 3000 1500
+$Comp
+L Device:R R?
+U 1 1 60729A67
+P 1300 4300
+F 0 "R?" V 1093 4300 50  0000 C CNN
+F 1 "220" V 1184 4300 50  0000 C CNN
+F 2 "" V 1230 4300 50  0001 C CNN
+F 3 "~" H 1300 4300 50  0001 C CNN
+	1    1300 4300
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 6072A556
+P 1300 4400
+F 0 "R?" V 1093 4400 50  0001 C CNN
+F 1 "220" V 1184 4400 50  0001 C CNN
+F 2 "" V 1230 4400 50  0001 C CNN
+F 3 "~" H 1300 4400 50  0001 C CNN
+	1    1300 4400
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 6072AEF3
+P 1300 4500
+F 0 "R?" V 1093 4500 50  0001 C CNN
+F 1 "220" V 1184 4500 50  0001 C CNN
+F 2 "" V 1230 4500 50  0001 C CNN
+F 3 "~" H 1300 4500 50  0001 C CNN
+	1    1300 4500
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 6072B1A4
+P 1300 4600
+F 0 "R?" V 1093 4600 50  0001 C CNN
+F 1 "220" V 1184 4600 50  0001 C CNN
+F 2 "" V 1230 4600 50  0001 C CNN
+F 3 "~" H 1300 4600 50  0001 C CNN
+	1    1300 4600
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 6072B426
+P 1300 4700
+F 0 "R?" V 1093 4700 50  0001 C CNN
+F 1 "220" V 1184 4700 50  0001 C CNN
+F 2 "" V 1230 4700 50  0001 C CNN
+F 3 "~" H 1300 4700 50  0001 C CNN
+	1    1300 4700
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 6072B5F4
+P 1600 4300
+F 0 "R?" V 1393 4300 50  0000 C CNN
+F 1 "47" V 1484 4300 50  0000 C CNN
+F 2 "" V 1530 4300 50  0001 C CNN
+F 3 "~" H 1600 4300 50  0001 C CNN
+	1    1600 4300
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 6072B9EB
+P 1600 4400
+F 0 "R?" V 1393 4400 50  0001 C CNN
+F 1 "47" V 1484 4400 50  0001 C CNN
+F 2 "" V 1530 4400 50  0001 C CNN
+F 3 "~" H 1600 4400 50  0001 C CNN
+	1    1600 4400
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 6072BD8B
+P 1600 4500
+F 0 "R?" V 1393 4500 50  0001 C CNN
+F 1 "47" V 1484 4500 50  0001 C CNN
+F 2 "" V 1530 4500 50  0001 C CNN
+F 3 "~" H 1600 4500 50  0001 C CNN
+	1    1600 4500
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 6072BFC5
+P 1600 4600
+F 0 "R?" V 1393 4600 50  0001 C CNN
+F 1 "47" V 1484 4600 50  0001 C CNN
+F 2 "" V 1530 4600 50  0001 C CNN
+F 3 "~" H 1600 4600 50  0001 C CNN
+	1    1600 4600
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 6072C1E3
+P 1600 4700
+F 0 "R?" V 1393 4700 50  0001 C CNN
+F 1 "47" V 1484 4700 50  0001 C CNN
+F 2 "" V 1530 4700 50  0001 C CNN
+F 3 "~" H 1600 4700 50  0001 C CNN
+	1    1600 4700
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	1150 4300 650  4300
+Text Label 650  4300 0    50   ~ 0
+VGA-B
+Wire Wire Line
+	3000 3300 2950 3300
+Wire Wire Line
+	2950 3300 2950 4500
+Wire Wire Line
+	2950 4500 1750 4500
+Wire Wire Line
+	3000 3200 2900 3200
+Wire Wire Line
+	2900 3200 2900 4400
+Wire Wire Line
+	2900 4400 1750 4400
+Wire Wire Line
+	3000 3100 2850 3100
+Wire Wire Line
+	2850 3100 2850 4300
+Wire Wire Line
+	2850 4300 1750 4300
+Wire Wire Line
+	3900 3300 4000 3300
+Wire Wire Line
+	4000 3300 4000 4600
+Wire Wire Line
+	4000 4600 1750 4600
+Wire Wire Line
+	3900 3200 4050 3200
+Wire Wire Line
+	4050 3200 4050 4700
+Wire Wire Line
+	4050 4700 1750 4700
+Text Label 650  4400 0    50   ~ 0
+VGA-G
+Text Label 650  4500 0    50   ~ 0
+VGA-R
+Text Label 650  4600 0    50   ~ 0
+VGA-HSYNC
+Text Label 650  4700 0    50   ~ 0
+VGA-VSYNC
+Wire Wire Line
+	1150 4400 650  4400
+Wire Wire Line
+	1150 4500 650  4500
+Wire Wire Line
+	1150 4600 650  4600
+Wire Wire Line
+	1150 4700 650  4700
 $EndSCHEMATC

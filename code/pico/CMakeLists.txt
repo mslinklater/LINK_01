@@ -12,6 +12,9 @@ add_executable(pico_kernel
 	uart.c
 	test.c
 	ic6502.c
+	shifter.c
+	busmaster.c
+	system.c
 )
 
 pico_enable_stdio_uart(pico_kernel 1)
