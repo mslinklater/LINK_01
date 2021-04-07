@@ -23,6 +23,10 @@ void shifter_init()
 	gpio_init(SHIFTER_IN_PIN);
 	gpio_set_dir(SHIFTER_IN_PIN, GPIO_OUT);
 	gpio_put(SHIFTER_IN_PIN, 1);
+
+	// OUT
+	gpio_init(SHIFTER_OUT_PIN);
+	gpio_set_dir(SHIFTER_OUT_PIN, GPIO_IN);
 }
 
 void shifter_enable_bus(bool enable)

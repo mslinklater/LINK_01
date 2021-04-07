@@ -5,16 +5,14 @@
 #include "configuration.h"
 #include "uart.h"
 #include "ic6502.h"
+#include "system.h"
 
 #include "test.h"
 
-int main()
+static void initUART()
 {
-    stdio_init_all();
-
 	// UART setup
-
-    uart_init(UART_ID, 2400);
+    uart_init(UART_ID, UART_BAUD_RATE);
     gpio_set_function(UART_TX_PIN, GPIO_FUNC_UART);
     gpio_set_function(UART_RX_PIN, GPIO_FUNC_UART);    
 
@@ -35,15 +33,19 @@ int main()
 	irq_set_exclusive_handler(uart_irq, uart_on_rx);
 	irq_set_enabled(uart_irq, true);
 	uart_set_irq_enables(UART_ID, true, false);
+}
+
+int main()
+{
+    stdio_init_all();
+
+	initUART();
+	uart_puts(UART_ID, "Welcome to the LINK_01...\n");
 
 	ic6502_init();
 	ic6502_reset();
 
 	runTest();
 
-	// exit
-	uart_puts(UART_ID, "Quit\n");
-	while(true)
-	{
-	}
+	system_main();
 }

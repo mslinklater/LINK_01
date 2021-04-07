@@ -26,26 +26,32 @@ void ic6502_init()
 	// NMIB
     gpio_init(IC6502_NMIB_PIN);
     gpio_set_dir(IC6502_NMIB_PIN, GPIO_OUT);
+
+	// RWB
+    gpio_init(IC6502_RWB_PIN);
+    gpio_set_dir(IC6502_NMIB_PIN, GPIO_IN);
 }
 
 void ic6502_reset()
 {
-	uart_puts(UART_ID, "Reset\n");
+	uart_puts(UART_ID, "6502: Reset\n");
     gpio_put(IC6502_RESB_PIN, 0);
     gpio_put(IC6502_IRQB_PIN, 1);
     gpio_put(IC6502_NMIB_PIN, 1);
 	ic6502_enable_bus(false);
 	for(int i=0 ; i<10 ; i++)
 	{
-		ic6502_tick();
+		ic6502_tick(1000);
 		sleep_ms(1);
 	}
     gpio_put(IC6502_RESB_PIN, 1);
 }
 
-void ic6502_tick()
+void ic6502_tick(uint64_t microSeconds)
 {
     gpio_put(IC6502_PHI2_PIN, s_tickState ? 1 : 0);
+    if(microSeconds > 0)
+        sleep_us(microSeconds);
 	s_tickState = !s_tickState;
 }
 

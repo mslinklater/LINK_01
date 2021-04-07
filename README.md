@@ -1,5 +1,18 @@
 # LINK_01
 The LINK_01 machine
+
+## What is LINK_01 ?
+
+LINK_01 is my first hombrew computer. At the moment I'm not sure it will work... but I hope it will.
+
+## Key Features
+
+* To explore 8-bit CPU technology by leveraging modern cheap microcontrollers.
+* To be fully software upgradeable
+* To let the microcontroller do the heavy lifting with I/O
+* To use modern compiler and debugging tools
+* To have fun programming the 6502
+
 # Starting the monitor
 
 > minicom -b 115200 -o -D /dev/serial0
@@ -34,10 +47,10 @@ ctrl-a q to quit
 ||8|11|###|30|-||
 ||9|12|###|29|22|6502 IRQB|
 |GND|-|13|###|28|-|GND|
-||10|14|###|27|21|6502 NMIB|
-||11|15|###|26|20||
-||12|16|###|25|19||
-|VGA-B|13|17|###|24|18||
+|6502 RWB|10|14|###|27|21|6502 NMIB|
+|SHIFTER OUT|11|15|###|26|20|SHIFTER OE|
+|SHIFTER IN|12|16|###|25|19|SHIFTER S0|
+|VGA-B|13|17|###|24|18|SHIFTER S1|
 |GND|-|18|###|23|-|GND|
 |VGA-G|14|19|###|22|17|VGA v-sync|
 |VGA-R|15|20|###|21|16|VGA h-sync|
@@ -47,7 +60,7 @@ Pin counts (available 28)
 UART 2
 VGA 5
 6502 5
-Debug 6
+Shifter 5
 
 # VGA pins
 
@@ -57,12 +70,12 @@ Debug 6
 |2|G|
 |3|B|
 |4|-|
-|5|-|
+|5|GND|
 |6|GND|
-|7|-|
-|8|-|
+|7|GND|
+|8|GND|
 |9|-|
-|10|-|
+|10|GND|
 |11|-|
 |12|-|
 |13|H-SYNC|
@@ -101,6 +114,19 @@ Debug 6
 |1|6502 PHI2|
 |2|6502 RESB|
 |3|6502 BE|
+|4|6502 IRQB|
+|5|6502 NMIB|
+|6|SHIFTER OE|
+|7|SHIFTER S0|
+|8|SHIFTER S1|
+
+# Voltage Shifter 2 - TSX0108E
+
+|pin|function|
+|---|---|
+|1|SHIFTER IN|
+|2|SHIFTER OUT|
+|3|6502 RWB|
 |4||
 |5||
 |6||

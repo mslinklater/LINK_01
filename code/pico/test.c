@@ -9,16 +9,7 @@ void do6502Test(int iter)
 {
     while (iter-- > 0) 
 	{
-		for(int i=0 ; i<20 ; i++)
-		{
-			ic6502_tick();
-	        sleep_ms(10);
-		}
-		for(int i=0 ; i<20 ; i++)
-		{
-			ic6502_tick();
-	        sleep_ms(10);
-		}
+		ic6502_tick(100000);
 	}
 }
 
@@ -31,18 +22,14 @@ void doShifterTest(int iter)
 		gpio_put(SHIFTER_IN_PIN, 1);
 		for(int i=0 ; i<8 ; i++)
 		{
-			ic6502_tick();
-	        sleep_ms(10);
-			ic6502_tick();
-	        sleep_ms(10);
+			ic6502_tick(10000);
+			ic6502_tick(10000);
 		}
 		gpio_put(SHIFTER_IN_PIN, 0);
 		for(int i=0 ; i<8 ; i++)
 		{
-			ic6502_tick();
-	        sleep_ms(10);
-			ic6502_tick();
-	        sleep_ms(10);
+			ic6502_tick(10000);
+			ic6502_tick(10000);
 		}
 	}
 }
@@ -57,7 +44,7 @@ void runTest()
 	sleep_ms(1000);
 
 	busmaster_set_control(BUSMASTER_CONTROL_6502);
-	do6502Test(1);
+	do6502Test(10);
 	busmaster_set_control(BUSMASTER_CONTROL_SHIFTER);
-	doShifterTest(10);
+	doShifterTest(1000000);
 }
