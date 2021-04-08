@@ -1,3 +1,4 @@
+
 /*
   SN74F299N explorer
   */
@@ -28,6 +29,8 @@ int pin_OE = 27;
 
 int pin_SHIFT_IN = 29;
 
+int pin_H = 31;
+
 int pin_CLK = 51;
 
 int clock = 0;
@@ -42,7 +45,8 @@ void setup()
   pinMode(pin_OE, OUTPUT);
   pinMode(pin_CLK, OUTPUT);
   pinMode(pin_SHIFT_IN, OUTPUT);
-  
+  pinMode(pin_H, INPUT);
+  set_input();  
 }
 
 void clear()  // we never need this...
@@ -127,12 +131,52 @@ void set_value(int data, int addr, int t)
 int dataval = 0;
 int addrval = 0;
 
+int read_value()
+{
+  int val = 0;
+
+  // load
+  digitalWrite(pin_S1, HIGH);
+  digitalWrite(pin_S0, HIGH);
+
+  digitalWrite(pin_CLK, LOW);
+  digitalWrite(pin_CLK, HIGH);
+  // loaded
+
+  // hold
+  digitalWrite(pin_S1, LOW);
+  digitalWrite(pin_S0, LOW);
+
+  // shift right
+  digitalWrite(pin_S0, HIGH);
+  
+  for(int i=0 ; i<8 ; i++)
+  {
+    Serial.print(digitalRead(pin_H));
+    val = val | digitalRead(pin_H) == HIGH ? 1 : 0;
+    val <<= 1;
+    digitalWrite(pin_CLK, LOW);
+    digitalWrite(pin_CLK, HIGH);
+  }
+  Serial.println("");
+  return val;
+}
+
+char buffer[128];
+
 void loop()
 {
-  set_value(dataval, addrval, 100);
+/*  set_value(dataval, addrval, 100);
   dataval--;
   addrval++;
-  
+  */
+
+  int val = read_value();
+
+  sprintf(buffer, "Val %d", val);
+  Serial.println(buffer);
+  delay(1000);
+
   /*
   left();
   for(int i=0 ; i<8 ; i++)
