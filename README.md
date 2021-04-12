@@ -19,6 +19,14 @@ LINK_01 is my first hombrew computer. At the moment I'm not sure it will work...
 
 ctrl-a q to quit
 
+# Writing the EEPROM
+
+> minipro -p AT28C64B -w ROMFILE
+
+# Outputting a ROM
+
+> hexdump -C FILE
+
 # Raspberry Pi pins
 
 |pin|use|

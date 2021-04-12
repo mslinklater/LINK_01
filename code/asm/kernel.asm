@@ -5,7 +5,12 @@
 	seg
 	org $e000
 
-KernelStart:	nop
+KernelStart:	
+	ldx #$00
+Increment:
+	inx
+	bne Increment
+	jmp KernelStart
 
 	org $fffc
 	.word KernelStart
