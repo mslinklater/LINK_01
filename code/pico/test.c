@@ -9,7 +9,7 @@ void do6502Test(int iter)
 {
     while (iter-- > 0) 
 	{
-		ic6502_tick(100000);
+		ic6502_tick(10000);
 	}
 }
 
@@ -36,15 +36,16 @@ void doShifterTest(int iter)
 
 void runTest()
 {
-	busmaster_set_control(BUSMASTER_CONTROL_OFF);
-	sleep_ms(1000);
-	busmaster_set_control(BUSMASTER_CONTROL_SHIFTER);
-	sleep_ms(1000);
-	busmaster_set_control(BUSMASTER_CONTROL_6502);
-	sleep_ms(1000);
+//	busmaster_set_control(BUSMASTER_CONTROL_OFF);
+//	sleep_ms(1000);
+//	busmaster_set_control(BUSMASTER_CONTROL_SHIFTER);
+//	sleep_ms(1000);
+//	busmaster_set_control(BUSMASTER_CONTROL_6502);
+//	sleep_ms(1000);
 
 	busmaster_set_control(BUSMASTER_CONTROL_6502);
-	do6502Test(10);
+	do6502Test(99999999);
+
 	busmaster_set_control(BUSMASTER_CONTROL_SHIFTER);
 	doShifterTest(1000000);
 }
