@@ -38,7 +38,7 @@ void ic6502_reset()
     gpio_put(IC6502_RESB_PIN, 0);
     gpio_put(IC6502_IRQB_PIN, 1);
     gpio_put(IC6502_NMIB_PIN, 1);
-	ic6502_enable_bus(false);
+	ic6502_enable_bus(true);
 	for(int i=0 ; i<10 ; i++)
 	{
 		ic6502_tick(1000);

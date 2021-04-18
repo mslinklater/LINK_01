@@ -11,6 +11,9 @@ const int read_pins[32] = { 23, 25, 27, 29, 31, 33, 35, 37,
 
 const int button_pin = 7;
 
+// other debug pins
+const int rw_pin = 16;
+
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
 int displayMode = 1;
@@ -24,6 +27,8 @@ void setup()
   }
   // button pin
   pinMode(button_pin, INPUT);
+  // other pins
+  pinMode(rw_pin, INPUT);
   
 //  lcd.begin(16,2);
 //  lcd.print("First Line");
@@ -72,13 +77,13 @@ void draw_hex()
   
   // R/W
   lcd.setCursor(0,1);
-  if(digitalRead(read_pins[16]) == HIGH)
+  if(digitalRead(read_pins[rw_pin]) == HIGH)
   {
-    lcd.print("READ");
+    lcd.print("R");
   }
   else
   {
-    lcd.print("WRITE");
+    lcd.print("W");
   }
 }
 

@@ -9,6 +9,11 @@
 
 #define IC6502_PHI2_PIN 28
 #define IC6502_RESB_PIN 27
+
+/// Bus Enable
+///
+/// LOW - high impedance
+/// HIGH - bus enabled
 #define IC6502_BE_PIN 26
 #define IC6502_IRQB_PIN 22
 #define IC6502_NMIB_PIN 21
@@ -17,6 +22,5 @@
 #define SHIFTER_OE_PIN 20
 #define SHIFTER_S0_PIN 19
 #define SHIFTER_S1_PIN 18
-
 #define SHIFTER_IN_PIN 12
 #define SHIFTER_OUT_PIN 11 
