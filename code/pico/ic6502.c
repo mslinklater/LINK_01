@@ -34,7 +34,7 @@ void ic6502_init()
 
 void ic6502_reset()
 {
-	uart_puts(UART_ID, "6502: Reset\n");
+	uart_puts_ln("6502: Begin Reset");
     gpio_put(IC6502_RESB_PIN, 0);
     gpio_put(IC6502_IRQB_PIN, 1);
     gpio_put(IC6502_NMIB_PIN, 1);
@@ -45,6 +45,7 @@ void ic6502_reset()
 		sleep_ms(1);
 	}
     gpio_put(IC6502_RESB_PIN, 1);
+	uart_puts_ln("6502: End Reset");
 }
 
 void ic6502_tick(uint64_t microSeconds)

@@ -41,18 +41,23 @@ int main()
     stdio_init_all();
 
 	initUART();
-	uart_puts(UART_ID, "Welcome to the LINK_01...\n");
+	uart_puts_ln("======================");
+	uart_puts_ln("Welcome to the LINK_01");
+	uart_puts_ln("======================");
+	uart_puts_ln("");
 
 	ic6502_init();
 	ic6502_reset();
 	busmaster_set_control(BUSMASTER_CONTROL_6502);
 
-	while(true)
-	{
-		ic6502_tick(250000);
-	}
+//	while(true)
+//	{
+//		ic6502_tick(250000);
+//	}
 
 //	runTest();
 
 	system_main();
+
+	uart_puts_ln("Exiting main() - this should never happen !");
 }

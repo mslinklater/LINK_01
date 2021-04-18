@@ -2,10 +2,15 @@
 #include "ic6502.h"
 
 static uint64_t tickDelayMicroSeconds;
+static bool fQuit = false;
 
 void system_main()
 {
-	// Main system loop
+	uart_ready();
+	while(!fQuit)
+	{
+
+	}
 }
 
 void system_halt()
