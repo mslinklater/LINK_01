@@ -7,6 +7,7 @@
 #include "ic6502.h"
 #include "system.h"
 #include "busmaster.h"
+#include "usercommand.h"
 
 #include "test.h"
 
@@ -50,12 +51,7 @@ int main()
 	ic6502_reset();
 	busmaster_set_control(BUSMASTER_CONTROL_6502);
 
-//	while(true)
-//	{
-//		ic6502_tick(250000);
-//	}
-
-//	runTest();
+	usercommand_init();
 
 	system_main();
 

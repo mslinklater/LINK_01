@@ -15,6 +15,7 @@ add_executable(pico_kernel
 	shifter.c
 	busmaster.c
 	system.c
+	usercommand.c
 )
 
 pico_enable_stdio_uart(pico_kernel 1)
