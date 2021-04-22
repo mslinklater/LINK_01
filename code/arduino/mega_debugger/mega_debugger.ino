@@ -98,7 +98,7 @@ void draw_hex()
   char buffer [32];
 
   // address
-  int val[6];
+  int val[4];
   int iVal = 0;
   for(int nibble=0 ; nibble<4 ; nibble++)
   {
@@ -106,7 +106,7 @@ void draw_hex()
     for(int bit=0 ; bit < 4 ; bit++)
     {
       val[iVal] <<= 1;
-      val[iVal] += (digitalRead(read_pins[pin]) == HIGH ? 1 : 0);
+      val[iVal] += cached_read_pins[pin] == HIGH ? 1 : 0;
       pin++;
     }
     iVal++;
@@ -120,10 +120,8 @@ void draw_hex()
     val[iVal] = 0;
     for(int bit=0 ; bit < 4 ; bit++)
     {
-      val[iVal] <<= 1;
-      val[iVal] += (digitalRead(read_pins[pin]) == HIGH ? 1 : 0);
       dataVal <<= 1;
-      dataVal += (digitalRead(read_pins[pin]) == HIGH ? 1 : 0);
+      dataVal += cached_read_pins[pin] == HIGH ? 1 : 0;
       pin++;
     }
     iVal++;
@@ -147,12 +145,48 @@ void draw_hex()
 
 void draw_raw()
 {
+  char buffer [32];
+  
   // draw raw inputs on 32 pins
-  for(int i=0 ; i<NUM_READ_PINS ; i++)
-  {
-    lcd.setCursor(i % 16,i / 16);
-    lcd.print(digitalRead(read_pins[i]) == HIGH ? "1" : "0");
-  }
+  lcd.setCursor(0,0);
+  sprintf(buffer, "%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d",
+            cached_read_pins[0],
+            cached_read_pins[1],
+            cached_read_pins[2],
+            cached_read_pins[3],
+            cached_read_pins[4],
+            cached_read_pins[5],
+            cached_read_pins[6],
+            cached_read_pins[7],
+            cached_read_pins[8],
+            cached_read_pins[9],
+            cached_read_pins[10],
+            cached_read_pins[11],
+            cached_read_pins[12],
+            cached_read_pins[13],
+            cached_read_pins[14],
+            cached_read_pins[15]);
+  lcd.print(buffer);
+  lcd.setCursor(0,1);
+  sprintf(buffer, "%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d",
+            cached_read_pins[16],
+            cached_read_pins[17],
+            cached_read_pins[18],
+            cached_read_pins[19],
+            cached_read_pins[20],
+            cached_read_pins[21],
+            cached_read_pins[22],
+            cached_read_pins[23],
+            cached_read_pins[24],
+            cached_read_pins[25],
+            cached_read_pins[26],
+            cached_read_pins[27],
+            cached_read_pins[28],
+            cached_read_pins[29],
+            cached_read_pins[30],
+            cached_read_pins[31]);
+  lcd.print(buffer);
+ 
 }
 
 void display()
@@ -160,6 +194,8 @@ void display()
   if(command.length() > 0)
     return;
 
+  cache_pins();
+  
   // display to LCD
   switch(displayMode)
   {
@@ -182,8 +218,6 @@ void cache_pins()
 
 void loop()
 {
-  cache_pins();
-
   if(command.length() > 0)
   {
     // display command
@@ -205,29 +239,18 @@ void loop()
       switch(displayMode)
       {
       case 0: 
-        command="Display - RAW"; 
+        command="Display - HEX"; 
         break;
       case 1: 
-        command="Display - BUS"; 
+        command="Display - RAW"; 
         break;
       }
       button_debounce[0] = millis();
     }
   }
   last_button_state[0] = val;
-
-  // read button 3
-  /*
-  val = digitalRead(button_pins[2]);
-  if((val == HIGH) && (last_button_state[2] == LOW))
-  {
-    if(button_debounce[2] + BUTTON_DEBOUNCE < millis())
-    {
-      button_debounce[2] = millis();
-    }
-  }
-  last_button_state[2] = val;
-  */
+  
+  delay(10);
 }
 
 
