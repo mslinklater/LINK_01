@@ -1,0 +1,104 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L FizzyChicken:Mega2560 U?
+U 1 1 6083081C
+P 3450 2950
+F 0 "U?" H 3450 4615 50  0000 C CNN
+F 1 "Mega2560" H 3450 4524 50  0000 C CNN
+F 2 "" H 3450 2950 50  0001 C CNN
+F 3 "" H 3450 2950 50  0001 C CNN
+	1    3450 2950
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 608326F6
+P 1300 2050
+F 0 "#PWR?" H 1300 1800 50  0001 C CNN
+F 1 "GND" H 1305 1877 50  0000 C CNN
+F 2 "" H 1300 2050 50  0001 C CNN
+F 3 "" H 1300 2050 50  0001 C CNN
+	1    1300 2050
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 60832A72
+P 1100 2300
+F 0 "#PWR?" H 1100 2150 50  0001 C CNN
+F 1 "+5V" H 1115 2473 50  0000 C CNN
+F 2 "" H 1100 2300 50  0001 C CNN
+F 3 "" H 1100 2300 50  0001 C CNN
+	1    1100 2300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1650 2050 1300 2050
+Wire Wire Line
+	1100 2300 1500 2300
+Wire Wire Line
+	1500 2300 1500 2150
+Wire Wire Line
+	1500 2150 1650 2150
+$Comp
+L Display_Character:WC1602A DS?
+U 1 1 60835E69
+P 7400 2800
+F 0 "DS?" H 7400 3781 50  0000 C CNN
+F 1 "WC1602A" H 7400 3690 50  0000 C CNN
+F 2 "Display:WC1602A" H 7400 1900 50  0001 C CIN
+F 3 "http://www.wincomlcd.com/pdf/WC1602A-SFYLYHTC06.pdf" H 8100 2800 50  0001 C CNN
+	1    7400 2800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7000 3400 6100 3400
+Wire Wire Line
+	6100 3400 6100 1650
+Wire Wire Line
+	6100 1650 5250 1650
+Wire Wire Line
+	7000 3300 6150 3300
+Wire Wire Line
+	6150 3300 6150 1750
+Wire Wire Line
+	6150 1750 5250 1750
+Wire Wire Line
+	7000 3200 6200 3200
+Wire Wire Line
+	6200 3200 6200 1850
+Wire Wire Line
+	6200 1850 5250 1850
+Wire Wire Line
+	7000 3100 6250 3100
+Wire Wire Line
+	6250 3100 6250 1950
+Wire Wire Line
+	6250 1950 5250 1950
+Wire Wire Line
+	5250 2050 6650 2050
+Wire Wire Line
+	6650 2050 6650 2200
+Wire Wire Line
+	6650 2200 7000 2200
+Wire Wire Line
+	5250 2150 6600 2150
+Wire Wire Line
+	7000 2400 6600 2400
+Wire Wire Line
+	6600 2150 6600 2400
+$EndSCHEMATC

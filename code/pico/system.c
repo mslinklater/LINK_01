@@ -10,7 +10,8 @@ void system_main()
 	uart_ready();
 	while(!fQuit)
 	{
-		ic6502_tick(100000);
+		ic6502_tick(10000);
+		ic6502_tick(10000);
 		uart_update();
 	}
 }
