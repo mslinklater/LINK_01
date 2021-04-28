@@ -40,9 +40,9 @@ const int read_pins[NUM_READ_PINS] = {
   22, 24, 26, 28, 30, 32, 34, 36,
   38, 40, 42, 44, 46, 48, 50, 52 };
 
-#define RW_PIN 16
-#define BE_PIN 17
-#define SYNC_PIN 18
+#define RW_PIN 24
+#define SYNC_PIN 25
+#define CPU_BE_PIN 26
 
 int cached_read_pins[NUM_READ_PINS];
 
@@ -80,7 +80,7 @@ void setup()
 
   // clock interrupt
   pinMode(CLOCK_PIN, INPUT);
-  attachInterrupt(1, onClock, RISING);
+  attachInterrupt(0, onClock, RISING);
 
   Serial.begin(115200);
 }
@@ -98,35 +98,33 @@ void draw_hex()
   char buffer [32];
 
   // address
-  int val[4];
-  int iVal = 0;
+  int addrVal = 0;
+//  int iVal = 0;
   for(int nibble=0 ; nibble<4 ; nibble++)
   {
-    val[iVal] = 0;
+//    val[iVal] = 0;
     for(int bit=0 ; bit < 4 ; bit++)
     {
-      val[iVal] <<= 1;
-      val[iVal] += cached_read_pins[pin] == HIGH ? 1 : 0;
+      addrVal <<= 1;
+      addrVal += cached_read_pins[pin] == HIGH ? 1 : 0;
       pin++;
     }
-    iVal++;
+//    iVal++;
   }
 
   // data
-  pin = 24;
+  pin = 16;
   int dataVal = 0;
   for(int nibble=0 ; nibble<2 ; nibble++)
   {
-    val[iVal] = 0;
     for(int bit=0 ; bit < 4 ; bit++)
     {
       dataVal <<= 1;
       dataVal += cached_read_pins[pin] == HIGH ? 1 : 0;
       pin++;
     }
-    iVal++;
   }
-  sprintf(buffer, "A:0x%X%X%X%X D:0x%02X ", val[0], val[1], val[2], val[3], dataVal);
+  sprintf(buffer, "A:0x%04X D:0x%02X ", addrVal, dataVal);
   lcd.print(buffer);
   Serial.print(buffer);
 
@@ -135,9 +133,19 @@ void draw_hex()
   {
     instruction = mnemonics[dataVal];
   }
+  else
+  {
+    switch(addrVal)
+    {
+      case 0xfffc:
+      case 0xfffd:
+        instruction = "RESET";
+        break;
+    }
+  }
 
   // R/W
-  sprintf(buffer, "%s%s %s", digitalRead(read_pins[RW_PIN]) == HIGH ? "R" : "W",digitalRead(read_pins[BE_PIN]) == HIGH ? "B" : "b", instruction.c_str());
+  sprintf(buffer, "%s%s %s", digitalRead(read_pins[RW_PIN]) == HIGH ? "R" : "W",digitalRead(read_pins[CPU_BE_PIN]) == HIGH ? "B" : "b", instruction.c_str());
   lcd.setCursor(0,1);
   lcd.print(buffer); 
   Serial.println(buffer);

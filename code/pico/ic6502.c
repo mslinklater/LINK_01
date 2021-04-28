@@ -27,7 +27,7 @@ void ic6502_init()
     gpio_init(IC6502_NMIB_PIN);
     gpio_set_dir(IC6502_NMIB_PIN, GPIO_OUT);
 
-	// RWB
+	// RWB - input... is driven by 6502
     gpio_init(IC6502_RWB_PIN);
     gpio_set_dir(IC6502_NMIB_PIN, GPIO_IN);
 }
@@ -42,7 +42,6 @@ void ic6502_reset()
 	for(int i=0 ; i<10 ; i++)
 	{
 		ic6502_tick(1000);
-		sleep_ms(1);
 	}
     gpio_put(IC6502_RESB_PIN, 1);
 	uart_puts_ln("6502: End Reset");

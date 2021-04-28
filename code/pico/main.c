@@ -47,9 +47,13 @@ int main()
 	uart_puts_ln("======================");
 	uart_puts_ln("");
 
+	// initialise all the things
 	ic6502_init();
+	shifter_init();
+
+	busmaster_set_control(BUSMASTER_CONTROL_OFF);
+
 	ic6502_reset();
-	busmaster_set_control(BUSMASTER_CONTROL_6502);
 
 	usercommand_init();
 
