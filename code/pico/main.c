@@ -47,6 +47,8 @@ int main()
 	uart_puts_ln("======================");
 	uart_puts_ln("");
 
+	sleep_ms(1000);	// just in case we power up first, let the rest of the board catch up...
+
 	// initialise all the things
 	ic6502_init();
 	shifter_init();

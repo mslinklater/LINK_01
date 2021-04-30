@@ -49,10 +49,13 @@ void ic6502_reset()
 
 void ic6502_tick(uint64_t microSeconds)
 {
-    gpio_put(IC6502_PHI2_PIN, s_tickState ? 1 : 0);
+    gpio_put(IC6502_PHI2_PIN, 0);
     if(microSeconds > 0)
-        sleep_us(microSeconds);
-	s_tickState = !s_tickState;
+        sleep_us(microSeconds/2);
+
+    gpio_put(IC6502_PHI2_PIN, 1);
+    if(microSeconds > 0)
+        sleep_us(microSeconds/2);
 }
 
 void ic6502_enable_bus(bool enable)
