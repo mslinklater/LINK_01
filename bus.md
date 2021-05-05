@@ -1,4 +1,4 @@
-# Main bus
+# 5V Bus
 
 |ID|Count|Description|
 |---|---|---|
@@ -17,3 +17,12 @@
 |TOTAL|36|Max lines on the veroboard|
 
 If things become tight the ~R and ~W channels could be retired. This would mean those signals would need to be generated locally per module rather than as part of the 6502 module.
+
+# 3V3 Bus
+
+|ID|Count|Description|
+|---|---|---|
+|GND|1|Ground 0V VDD|
+|3V3|1|3.3V Supply VCC|
+|B0-B15|16|General purpose signals|
+|TOTAL|18||
