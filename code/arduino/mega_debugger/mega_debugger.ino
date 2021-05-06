@@ -234,7 +234,7 @@ void loop()
     command = "";
   }
 
-  // read button 1
+  // read button 0
   int val = digitalRead(button_pins[0]);
   if((val == HIGH) && (last_button_state[0] == LOW))
   {
@@ -256,6 +256,18 @@ void loop()
     }
   }
   last_button_state[0] = val;
+
+  // read button 0
+  val = digitalRead(button_pins[1]);
+  if((val == HIGH) && (last_button_state[1] == LOW))
+  {
+    if(button_debounce[1] + BUTTON_DEBOUNCE < millis())
+    {
+      display();
+      button_debounce[1] = millis();
+    }
+  }
+  last_button_state[1] = val;
   
   delay(10);
 }
