@@ -22,6 +22,7 @@ void usercommand_add(const char* szCommand)
 		uart_puts_ln("c : continue");
 		uart_puts_ln("reset : reset");
 		uart_puts_ln("t : single tick");
+		uart_puts_ln("rb : read busses");
 		uart_ready();
 	}
 	else if(strcmp(szCommand, "h") == 0)
@@ -45,6 +46,12 @@ void usercommand_add(const char* szCommand)
 		int count;
 		sscanf(szCommand, "tr %d", &count);
 		system_set_tick_rate(count);
+	}
+	else if(strcmp(szCommand, "rb") == 0)
+	{
+		uint16_t address;
+		uint8_t data;
+		shifter_readbus(&address, &data);
 	}
 }
 

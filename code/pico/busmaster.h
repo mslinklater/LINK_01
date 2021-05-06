@@ -3,3 +3,4 @@
 #define BUSMASTER_CONTROL_SHIFTER 2
 
 extern void busmaster_set_control(int busControl);
+extern int busmaster_get_control();

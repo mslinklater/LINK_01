@@ -1,11 +1,12 @@
 #include "system.h"
 #include "ic6502.h"
 #include "uart.h"
+#include "shifter.h"
 
 static uint64_t tickDelayMicroSeconds;
 static bool fQuit = false;
 
-static uint64_t tickDelay = 100000;
+static uint64_t tickDelay = 500000;
 static uint64_t oldTickDelay = 0;
 
 void system_main()
@@ -18,6 +19,7 @@ void system_main()
 			ic6502_tick(tickDelay);
 		}
 		uart_update();
+
 	}
 }
 
@@ -46,4 +48,14 @@ void system_set_tick_rate(int rate)
 
 	int bp=0;
 	bp++;
+}
+
+uint8_t system_read_memory(uint16_t address)
+{
+	return 0;
+}
+
+void system_write_memory(uint16_t address, uint8_t data)
+{
+
 }

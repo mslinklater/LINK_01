@@ -2,6 +2,8 @@
 #include "ic6502.h"
 #include "shifter.h"
 
+static int s_currentControl;
+
 void busmaster_set_control(int busControl)
 {
 	switch(busControl)
@@ -21,4 +23,10 @@ void busmaster_set_control(int busControl)
 		default:
 			break;
 	}
+	s_currentControl = busControl;
+}
+
+int busmaster_get_control()
+{
+	return s_currentControl;
 }
