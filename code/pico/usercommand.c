@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "usercommand.h"
 #include "uart.h"
 #include "system.h"

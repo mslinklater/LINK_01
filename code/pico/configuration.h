@@ -17,7 +17,7 @@
 #define IC6502_BE_PIN 26
 #define IC6502_IRQB_PIN 22
 #define IC6502_NMIB_PIN 21
-#define IC6502_RWB_PIN 10
+//#define IC6502_RWB_PIN 10
 
 #define SHIFTER_OE_PIN 20
 #define SHIFTER_S0_PIN 19

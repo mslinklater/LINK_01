@@ -51,7 +51,7 @@ int main()
 
 	// initialise all the things
 	ic6502_init();
-	shifter_init();
+	//shifter_init();
 
 	busmaster_set_control(BUSMASTER_CONTROL_OFF);
 

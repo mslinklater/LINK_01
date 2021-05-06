@@ -28,8 +28,8 @@ void ic6502_init()
     gpio_set_dir(IC6502_NMIB_PIN, GPIO_OUT);
 
 	// RWB - input... is driven by 6502
-    gpio_init(IC6502_RWB_PIN);
-    gpio_set_dir(IC6502_NMIB_PIN, GPIO_IN);
+//    gpio_init(IC6502_RWB_PIN);
+//    gpio_set_dir(IC6502_NMIB_PIN, GPIO_IN);
 }
 
 void ic6502_reset()

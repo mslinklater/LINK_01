@@ -22,179 +22,191 @@ Left  H   H   L   L   L   ^   L   X   QBn QCn QDn QEn QFn QGn QHn L   QBn L     
 Load  H   H   H   X   X   ^   X   X   a   b   c   d   e   f   g   h   a   h     <
 */
 
-int pin_S0 = 23;
-int pin_S1 = 25;
+#define PIN_S0 0
+#define PIN_OE1 1
+#define PIN_OE2 2
+#define PIN_G 3
+#define PIN_E 4
+#define PIN_C 5
+#define PIN_A 6
+#define PIN_QA 7
+#define PIN_CLR 8
 
-int pin_OE = 27;
+#define PIN_SR 9
+#define PIN_CLK 10
+#define PIN_B 11
+#define PIN_D 12
+#define PIN_F 13
+#define PIN_H 14
+#define PIN_QH 15
+#define PIN_SL 16
+#define PIN_S1 17
 
-int pin_SHIFT_IN = 29;
-
-int pin_H = 31;
-
-int pin_CLK = 51;
-
-int clock = 0;
-int pause = 10;
+int pin[18] = {
+  52, 50, 48, 46, 44, 42, 40, 38, 36,
+  37, 39, 41, 43, 45, 47, 49, 51, 53
+};
 
 void setup()
 {
-  Serial.begin(9600);
+  Serial.begin(112500);
+
+  // pin directions
+  pinMode(pin[PIN_S0], OUTPUT);
+  pinMode(pin[PIN_OE1], OUTPUT);
+  pinMode(pin[PIN_OE2], OUTPUT);
+  pinMode(pin[PIN_CLR], OUTPUT);
+  pinMode(pin[PIN_SR], OUTPUT);
+  pinMode(pin[PIN_CLK], OUTPUT);
+  pinMode(pin[PIN_SL], OUTPUT);
+  pinMode(pin[PIN_S1], OUTPUT);
+  pinMode(pin[PIN_QA], INPUT);
+  pinMode(pin[PIN_QH], INPUT);
+
+  set_bus(INPUT);  
+}
+
+void set_bus(int value)
+{
+  pinMode(pin[PIN_A], value);
+  pinMode(pin[PIN_B], value);
+  pinMode(pin[PIN_C], value);
+  pinMode(pin[PIN_D], value);
+  pinMode(pin[PIN_E], value);
+  pinMode(pin[PIN_F], value);
+  pinMode(pin[PIN_G], value);
+  pinMode(pin[PIN_H], value);
+}
+
+void set_bus_value(int value)
+{
+  digitalWrite(pin[PIN_A], value & 0x01);
+  digitalWrite(pin[PIN_B], value & 0x02);
+  digitalWrite(pin[PIN_C], value & 0x04);
+  digitalWrite(pin[PIN_D], value & 0x08);
+  digitalWrite(pin[PIN_E], value & 0x10);
+  digitalWrite(pin[PIN_F], value & 0x20);
+  digitalWrite(pin[PIN_G], value & 0x40);
+  digitalWrite(pin[PIN_H], value & 0x80);
+}
+
+int read_bus_value()
+{
+  int out = 0;
+  out += digitalRead(pin[PIN_A]) == HIGH ? 0x01 : 0;
+  out += digitalRead(pin[PIN_B]) == HIGH ? 0x02 : 0;
+  out += digitalRead(pin[PIN_C]) == HIGH ? 0x04 : 0;
+  out += digitalRead(pin[PIN_D]) == HIGH ? 0x08 : 0;
+  out += digitalRead(pin[PIN_E]) == HIGH ? 0x10 : 0;
+  out += digitalRead(pin[PIN_F]) == HIGH ? 0x20 : 0;
+  out += digitalRead(pin[PIN_G]) == HIGH ? 0x40 : 0;
+  out += digitalRead(pin[PIN_H]) == HIGH ? 0x80 : 0;
   
-  pinMode(pin_S0, OUTPUT);
-  pinMode(pin_S1, OUTPUT);
-  pinMode(pin_OE, OUTPUT);
-  pinMode(pin_CLK, OUTPUT);
-  pinMode(pin_SHIFT_IN, OUTPUT);
-  pinMode(pin_H, INPUT);
-  set_input();  
+  return out;
 }
 
-void clear()  // we never need this...
+void clock()
 {
-  Serial.println("clear");
-  set_output();
-  left();
-  for(int i=0 ; i<24 ; i++)
-  {
-    shift(0, 0);
-  }
+  digitalWrite(pin[PIN_CLK], LOW);
+  digitalWrite(pin[PIN_CLK], HIGH);
 }
 
-void set_input()
+void load()
 {
-  digitalWrite(pin_OE, HIGH);
+  digitalWrite(pin[PIN_CLR], HIGH);
+  digitalWrite(pin[PIN_S1], HIGH);
+  digitalWrite(pin[PIN_S0], HIGH);
+  clock();
 }
 
-void set_output()
+void hold()
 {
-  digitalWrite(pin_OE, LOW);
-}
-
-void tick(int t)
-{
-  if(clock == 0)
-  {
-    digitalWrite(pin_CLK, LOW);
-    clock = 1;
-  }
-  else
-  {
-    digitalWrite(pin_CLK, HIGH);
-    clock = 0;
-  }
-  delay(t);
+  digitalWrite(pin[PIN_CLR], HIGH);
+  digitalWrite(pin[PIN_S0], LOW);
+  digitalWrite(pin[PIN_S1], LOW);
+  digitalWrite(pin[PIN_OE1], LOW);
+  digitalWrite(pin[PIN_OE2], LOW);
 }
 
 void left()
 {
-  digitalWrite(pin_S1, HIGH);
-  digitalWrite(pin_S0, LOW);
+  digitalWrite(pin[PIN_CLR], HIGH);
+  digitalWrite(pin[PIN_S1], HIGH);
+  digitalWrite(pin[PIN_S0], LOW);
+  digitalWrite(pin[PIN_OE1], LOW);
+  digitalWrite(pin[PIN_OE2], LOW);
+//  digitalWrite(pin[PIN_SL], HIGH);
+  clock();  
 }
 
 void right()
 {
-  digitalWrite(pin_S1, LOW);
-  digitalWrite(pin_S0, HIGH);
+  digitalWrite(pin[PIN_CLR], HIGH);
+  digitalWrite(pin[PIN_S1], LOW);
+  digitalWrite(pin[PIN_S0], HIGH);
+  digitalWrite(pin[PIN_OE1], LOW);
+  digitalWrite(pin[PIN_OE2], LOW);
+//  digitalWrite(pin[PIN_SR], HIGH);
+  clock();  
 }
 
-void shift(int value, int t)
+void read_random_value()
 {
-  digitalWrite(pin_SHIFT_IN, value);
-  tick(t);
-  tick(t);  
-}
-
-int value = 0;
-
-void set_value(int data, int addr, int t)
-{
-  set_input();
-  left();
-  for(int i=0 ; i<16 ; i++)
-  {
-    if(addr & (1<<i))
-      shift(1, 0);
-    else
-      shift(0, 0);
-  }
-  for(int i=0 ; i<8 ; i++)
-  {
-    if(data & (1<<i))
-      shift(1, 0);
-    else
-      shift(0, 0);
-  }  
-  set_output();
-  delay(t);
-}
-
-int dataval = 0;
-int addrval = 0;
-
-int read_value()
-{
-  int val = 0;
-
-  // load
-  digitalWrite(pin_S1, HIGH);
-  digitalWrite(pin_S0, HIGH);
-
-  digitalWrite(pin_CLK, LOW);
-  digitalWrite(pin_CLK, HIGH);
-  // loaded
-
-  // hold
-  digitalWrite(pin_S1, LOW);
-  digitalWrite(pin_S0, LOW);
-
-  // shift right
-  digitalWrite(pin_S0, HIGH);
+  // set bus to random value
   
+  int write_value = random(0,256);
+  
+  set_bus(OUTPUT);
+  set_bus_value(write_value);
+  
+  load();
+  
+  // hold the value
+  hold();
+    
+  // set bus to write
+  set_bus(INPUT);
+  
+  // roll value and rebuild number
+  int read_value = 0;
   for(int i=0 ; i<8 ; i++)
   {
-    Serial.print(digitalRead(pin_H));
-    val = val | digitalRead(pin_H) == HIGH ? 1 : 0;
-    val <<= 1;
-    digitalWrite(pin_CLK, LOW);
-    digitalWrite(pin_CLK, HIGH);
+    read_value <<= 1;
+    read_value += digitalRead(pin[PIN_H]) == HIGH ? 1 : 0;
+    right();
   }
-  Serial.println("");
-  return val;
+  
+  char buffer[32];
+  sprintf(buffer, "bus write %02x shift read %02x", write_value, read_value);  
+  Serial.println(buffer);
 }
 
-char buffer[128];
+void write_random_value()
+{
+  set_bus(INPUT);
+
+  int write_value = random(0,256);
+  
+  // shift in a value
+
+  for(int i=0 ; i<8 ; i++)
+  {
+    digitalWrite(pin[PIN_SR], (write_value & (0x80>>i)) == 0 ? LOW : HIGH );
+    right();
+  }
+  
+  // read value from bus
+  int read_value = read_bus_value();
+
+  char buffer[32];
+  sprintf(buffer, "shift write %02x bus read %02x", write_value, read_value);
+  Serial.println(buffer);
+}
 
 void loop()
 {
-/*  set_value(dataval, addrval, 100);
-  dataval--;
-  addrval++;
-  */
-
-  int val = read_value();
-
-  sprintf(buffer, "Val %d", val);
-  Serial.println(buffer);
+  Serial.println("---");
+  read_random_value();
+  write_random_value();
   delay(1000);
-
-  /*
-  left();
-  for(int i=0 ; i<8 ; i++)
-  {
-    shift(1, pause);
-  }
-  for(int i=0 ; i<24 ; i++)
-  {
-    shift(0, pause);
-  }
-  right();
-  for(int i=0 ; i<8 ; i++)
-  {
-    shift(1, pause);
-  }
-  for(int i=0 ; i<24 ; i++)
-  {
-    shift(0, pause);
-  }
-  */
 }

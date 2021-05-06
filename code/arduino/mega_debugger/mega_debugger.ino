@@ -33,6 +33,8 @@ const String mnemonics[256] = {
   "BEQ r", "SBC (zp),y", "SBC (zp)", "", "", "SBC zp,x", "INC zp,x", "SMB7 zp", "SED", "SBC $,y", "PLX", "", "", "SBC $,x", "INC $,x", "BBS7 r"
 };
 
+const String symbolfile = "";
+
 // input pins
 const int read_pins[NUM_READ_PINS] = { 
   23, 25, 27, 29, 31, 33, 35, 37,
@@ -99,17 +101,14 @@ void draw_hex()
 
   // address
   int addrVal = 0;
-//  int iVal = 0;
   for(int nibble=0 ; nibble<4 ; nibble++)
   {
-//    val[iVal] = 0;
     for(int bit=0 ; bit < 4 ; bit++)
     {
       addrVal <<= 1;
       addrVal += cached_read_pins[pin] == HIGH ? 1 : 0;
       pin++;
     }
-//    iVal++;
   }
 
   // data
