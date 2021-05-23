@@ -28,6 +28,8 @@
 #define SHIFTER_IN_PIN 12
 #define SHIFTER_OUT_PIN 11
 #define SHIFTER_CLK_PIN 9
+#define SHIFTER_BUS_DIR_PIN 8
+#define SHIFTER_BUS_OE_PIN 7
 
 // 3V3 bus
 

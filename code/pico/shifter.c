@@ -36,6 +36,16 @@ void shifter_init()
 	gpio_init(SHIFTER_CLK_PIN);
 	gpio_set_dir(SHIFTER_CLK_PIN, GPIO_OUT);
 	gpio_put(SHIFTER_CLK_PIN, 1);
+
+	// BUS DIR
+	gpio_init(SHIFTER_BUS_DIR_PIN);
+	gpio_set_dir(SHIFTER_BUS_DIR_PIN, GPIO_OUT);
+	gpio_put(SHIFTER_BUS_DIR_PIN, 1);
+
+	// BUS DIR
+	gpio_init(SHIFTER_BUS_OE_PIN);
+	gpio_set_dir(SHIFTER_BUS_OE_PIN, GPIO_OUT);
+	gpio_put(SHIFTER_BUS_OE_PIN, 1);
 }
 
 void shifter_enable_bus(bool enable)
